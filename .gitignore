@@ -1,0 +1,34 @@
+# ===== Dependencias y builds (ambos proyectos) =====
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/.vite/
+*.local
+*.log
+
+# ===== Escritorio (Tauri / Rust) =====
+desktop/src-tauri/target/
+desktop/src-tauri/gen/
+desktop/src-tauri/Cargo.lock
+# FFmpeg no se versiona (grande + licencia propia)
+desktop/src-tauri/binaries/ffmpeg*
+!desktop/src-tauri/binaries/README.md
+
+# ===== Móvil (Capacitor / Android) =====
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/local.properties
+mobile/android/.idea/
+mobile/android/capacitor-cordova-android-plugins/
+
+# ===== Editores / SO =====
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===== Entorno =====
+.env
+.env.*

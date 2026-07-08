@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Arcionr</string>
+    <string name="title_activity_main">Arcionr</string>
+    <string name="package_name">com.eve.arcionr</string>
+    <string name="custom_url_scheme">com.eve.arcionr</string>
+</resources>

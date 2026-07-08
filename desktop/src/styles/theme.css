@@ -1,0 +1,52 @@
+/* Arcionr — sistema de temas (fresa / vainilla / chocolate = "neapolitano").
+   Temas: claro, oscuro, sistema, + color de fondo personalizable.
+   Todo se maneja con variables CSS; el fondo custom sólo pisa --bg. */
+
+:root,
+[data-theme="light"] {
+  --bg: #FBF6F0;
+  --surface: #FFFDFB;
+  --surface-2: #F4E9DF;
+  --text: #3A2A22;
+  --text-soft: #7A675C;
+  --border: #E7D8CC;
+
+  --accent: #D6798B;         /* fresa */
+  --accent-strong: #C25E72;
+  --accent-soft: #F6E1E6;
+  --choco: #6E4B3A;
+
+  --ok: #4F8A6B;
+  --warn: #C9843E;
+  --danger: #C25454;
+
+  --shadow: 0 1px 2px rgba(58,42,34,.06), 0 8px 24px rgba(58,42,34,.06);
+  --radius: 14px;
+  --radius-sm: 10px;
+}
+
+[data-theme="dark"] {
+  --bg: #16161A;             /* oscuro real, no café */
+  --surface: #1E1E24;
+  --surface-2: #292930;
+  --text: #ECECEF;
+  --text-soft: #A2A2AD;
+  --border: #34343D;
+
+  --accent: #E58BA0;         /* fresa: se mantiene la identidad */
+  --accent-strong: #EFA6B6;
+  --accent-soft: #3A2A31;
+  --choco: #CBA795;
+
+  --ok: #6FBF95;
+  --warn: #E0A868;
+  --danger: #E88A8A;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.45);
+}
+
+/* Cuando el fondo personalizado está activo, JS setea --bg-custom.
+   Lo aplicamos sólo al lienzo de la app, no a las superficies. */
+[data-custombg="on"] {
+  --bg: var(--bg-custom);
+}

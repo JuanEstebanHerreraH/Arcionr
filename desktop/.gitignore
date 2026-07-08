@@ -1,0 +1,28 @@
+# ---- Node / frontend ----
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# ---- Rust / Tauri ----
+src-tauri/target/
+src-tauri/gen/
+src-tauri/Cargo.lock
+
+# ---- Binarios externos (FFmpeg no se versiona: es grande y por licencia) ----
+src-tauri/binaries/ffmpeg*
+!src-tauri/binaries/README.md
+
+# ---- Editores / SO ----
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# ---- Entorno ----
+.env
+.env.*
