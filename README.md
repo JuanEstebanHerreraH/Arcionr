@@ -87,5 +87,4 @@ imágenes y PDF por las limitaciones de audio/video en móvil.
 
 ## Licencia
 
-Sin licencia definida aún. Si querés que otros puedan usarlo y contribuir, agregá
-una (MIT es la opción simple y permisiva).
+MIT.
