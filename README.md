@@ -80,7 +80,7 @@ es justamente ese: tomar algo y transformarlo en otra versión de sí mismo.
 
 ## Estado y notas
 
-Proyecto en desarrollo activo. FFmpeg (audio/video) viene **desactivado de fábrica**
+FFmpeg (audio/video) viene **desactivado de fábrica**
 en escritorio para que cualquiera pueda clonar y compilar sin dependencias; se activa
 en un paso (ver `desktop/src-tauri/binaries/README.md`). La app de Android cubre
 imágenes y PDF por las limitaciones de audio/video en móvil.
