@@ -1,90 +1,87 @@
-<div align="center">
-  <img src="desktop/public/logo.svg" width="96" alt="Arcionr" />
+<p align="center"><img src="desktop/public/logo.svg" width="88" alt="Arcionr"></p>
 
-  # Arcionr
+# Arcionr
 
-  **Conversor de archivos offline, por lotes y sin humo — para escritorio y Android.**
+**Convierte archivos y trabaja con PDF sin subirlos a un servidor.**
 
-  Convertí imágenes, audio, video y PDF sin subir nada a internet, sin cuentas y
-  sin publicidad. Todo el procesamiento ocurre en tu equipo.
-</div>
+Dos aplicaciones con una misma identidad: escritorio para imágenes, PDF y organización de carpetas; Android para convertir imágenes y crear PDF. El audio y el video en escritorio requieren FFmpeg opcional.
 
----
+## Descargas disponibles
 
-## Dos apps, un mismo espíritu
+| Plataforma | Archivo publicado | Observación |
+| --- | --- | --- |
+| Windows x64 | [Instalador de Arcionr 0.1.0](https://github.com/JuanEstebanHerreraH/Arcionr/releases/download/Arcionr/Arcionr_0.1.0_x64-setup.exe) | Aplicación de escritorio Tauri. |
+| Android | [APK de prueba](https://github.com/JuanEstebanHerreraH/Arcionr/releases/download/Arcionr/app-debug.apk) | Compilación debug distribuida fuera de Google Play. |
 
-Este repositorio contiene **dos proyectos**: la app de escritorio (Windows/macOS/Linux)
-y la app de Android. Comparten identidad y filosofía, pero cada plataforma hace lo
-que puede hacer bien.
+[Todos los archivos y notas de la versión](https://github.com/JuanEstebanHerreraH/Arcionr/releases/tag/Arcionr) · [Reportar un problema](https://github.com/JuanEstebanHerreraH/Arcionr/issues)
 
-| | 🖥️ Escritorio (`desktop/`) | 📱 Android (`mobile/`) |
-|---|---|---|
-| **Base** | Tauri v2 + React + Rust | Capacitor + React |
-| **Imágenes** | png · jpg · webp · bmp · gif · tiff | png · jpg · webp |
-| **SVG → raster** | ✅ | — |
-| **Vectorizar (img → svg)** | ✅ | — |
-| **Imágenes → PDF** | ✅ | ✅ |
-| **PDF → imágenes** | ✅ | — |
-| **Gestor de páginas** (reordenar/eliminar) | ✅ | — |
-| **Combinar** (unir PDFs + imágenes) | ✅ | — |
-| **Organizar carpeta** por tipo/extensión | ✅ | — |
-| **Audio / Video** (FFmpeg) | ✅ opcional | — |
-| **Guardar** | Carpeta local | Galería + Compartir |
+El código de escritorio también puede compilarse para otros sistemas con los requisitos de Tauri, pero las descargas anteriores corresponden a Windows y Android.
 
-> En móvil el foco es lo que el teléfono hace bien y sin permisos: convertir
-> imágenes y armar PDFs. Audio, video y organización de carpetas son de escritorio.
+## Qué hace cada versión
 
-## Estructura
+| Función | Escritorio | Android |
+| --- | --- | --- |
+| Imágenes | PNG, JPG, WebP, BMP, GIF y TIFF | PNG, JPG y WebP |
+| Procesamiento por lotes | Sí | Sí |
+| Imágenes → PDF | Sí | Sí |
+| PDF → imágenes | Sí | No |
+| Reordenar, eliminar y combinar páginas | Sí | No |
+| Rasterizar SVG y vectorizar imágenes | Sí | No |
+| Organizar una carpeta por tipo de archivo | Sí | No |
+| Audio y video | Con FFmpeg opcional | No |
+| Guardado | Carpeta local | Galería y menú Compartir |
 
-```
-arcionr/
-├─ desktop/   # App de escritorio (Tauri) — ver desktop/README.md
-├─ mobile/    # App de Android (Capacitor) — ver mobile/README.md
-└─ README.md  # este archivo
-```
+## Cómo usarlo
 
-## Cómo compilar
+1. Selecciona los archivos de entrada.
+2. Elige la categoría y el formato de salida; en escritorio, abre la sección PDF para gestionar páginas.
+3. Convierte y revisa la salida antes de usarla en otro trabajo.
 
-Cada proyecto tiene su propio README con los pasos detallados.
+En escritorio, las salidas se guardan en una subcarpeta Arcionr junto al original. Las operaciones de organización de carpetas sí pueden mover archivos; conviene probarlas primero con una carpeta de ejemplo.
 
-**Escritorio** (necesita Node + Rust + toolchain del SO):
-```bash
-cd desktop
+## Decisión de implementación
+
+La interfaz comparte React y TypeScript. En escritorio, Tauri y Rust permiten acceder al sistema de archivos y convertir imágenes de forma nativa; en Android, Capacitor integra el guardado y el menú de compartir del teléfono. La diferencia de funciones entre plataformas responde a sus APIs y permisos disponibles.
+
+## Límites actuales
+
+- FFmpeg viene desactivado en la configuración base. No todas las compilaciones incluyen audio/video.
+- AVIF/HEIC y conversión Office ↔ PDF no forman parte de las funciones disponibles documentadas.
+- La versión Android tiene menos herramientas PDF que escritorio.
+- La interfaz de escritorio necesita las APIs nativas de Tauri; abrir solo el servidor web no reproduce todas las funciones.
+
+<details>
+<summary><strong>Desarrollo y compilación</strong></summary>
+
+### Escritorio
+
+Requiere Node.js, npm, Rust y los requisitos de Tauri para tu sistema.
+
+~~~sh
+git clone https://github.com/JuanEstebanHerreraH/Arcionr.git
+cd Arcionr/desktop
 npm install
-npm run tauri dev      # desarrollo
-npm run tauri build    # instalador .exe / .msi
-```
+npm run tauri dev
+~~~
 
-**Android** (necesita Node + Android SDK; no necesita Rust):
-```bash
+Para construir: `npm run tauri build`. Consulta [desktop/README.md](desktop/README.md) y la [configuración opcional de FFmpeg](desktop/src-tauri/binaries/README.md).
+
+### Android
+
+Requiere Node.js, npm, JDK y Android Studio con el SDK configurado.
+
+~~~sh
 cd mobile
 npm install
 npm run build
 npx cap sync android
-cd android && ./gradlew assembleDebug   # genera el APK
-```
+npx cap open android
+~~~
 
-## Descargas (binarios)
+Desde la raíz del repositorio usa `cd mobile`; si estás en `desktop/`, vuelve primero al directorio superior. La guía completa está en [mobile/README.md](mobile/README.md).
 
-Los ejecutables **no se versionan** en el repo (son grandes y se regeneran). Se
-publican en la pestaña **Releases** de GitHub:
-- Escritorio: el instalador `.exe` / `.msi`.
-- Android: el `app-debug.apk`.
-
-Así la gente descarga sin necesidad de compilar.
-
-## Identidad visual
-
-Paleta **neapolitana** — fresa, vainilla y chocolate — porque el gesto de la app
-es justamente ese: tomar algo y transformarlo en otra versión de sí mismo.
-
-## Estado y notas
-
-FFmpeg (audio/video) viene **desactivado de fábrica**
-en escritorio para que cualquiera pueda clonar y compilar sin dependencias; se activa
-en un paso (ver `desktop/src-tauri/binaries/README.md`). La app de Android cubre
-imágenes y PDF por las limitaciones de audio/video en móvil.
+</details>
 
 ## Licencia
 
-MIT.
+Código bajo [licencia MIT](LICENSE.txt). FFmpeg y las dependencias conservan sus propias licencias.
